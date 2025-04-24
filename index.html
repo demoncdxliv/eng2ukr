@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <title>Розкладка Fix</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      max-width: 600px;
+      margin: 2rem auto;
+      padding: 1rem;
+      background: #f9f9f9;
+    }
+    textarea {
+      width: 100%;
+      height: 100px;
+      font-size: 1.2rem;
+    }
+    button {
+      margin-top: 1rem;
+      padding: 0.5rem 1rem;
+      font-size: 1rem;
+    }
+    #result {
+      margin-top: 1.5rem;
+      font-size: 1.3rem;
+      background: #fff;
+      padding: 1rem;
+      border: 1px solid #ccc;
+    }
+  </style>
+</head>
+<body>
+  <h1>Розшифровка англійської розкладки → українська</h1>
+  <textarea id="input" placeholder="Набери щось на англійській, наприклад 'ghbdtn'..."></textarea>
+  <br>
+  <button onclick="convert()">Перетворити</button>
+  <div id="result"></div>
+
+  <script>
+    const layoutMap = {
+      'q': 'й', 'w': 'ц', 'e': 'у', 'r': 'к', 't': 'е',
+      'y': 'н', 'u': 'г', 'i': 'ш', 'o': 'щ', 'p': 'з',
+      '[': 'х', ']': 'ї', 'a': 'ф', 's': 'і', 'd': 'в',
+      'f': 'а', 'g': 'п', 'h': 'р', 'j': 'о', 'k': 'л',
+      'l': 'д', ';': 'ж', "'": 'є', 'z': 'я', 'x': 'ч',
+      'c': 'с', 'v': 'м', 'b': 'и', 'n': 'т', 'm': 'ь',
+      ',': 'б', '.': 'ю', '/': '.', '`': 'ґ'
+    };
+
+    function fixLayout(input) {
+      return input.split('').map(ch => {
+        const lower = ch.toLowerCase();
+        const mapped = layoutMap[lower] || ch;
+        return ch === lower ? mapped : mapped.toUpperCase();
+      }).join('');
+    }
+
+    function convert() {
+      const input = document.getElementById("input").value;
+      const fixed = fixLayout(input);
+      document.getElementById("result").innerText = fixed;
+    }
+  </script>
+</body>
+</html>
